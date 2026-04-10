@@ -3,11 +3,11 @@
 import { useState } from "react";
 
 const paymentMethods = [
-  { name: "Zelle", icon: "💜" },
-  { name: "CashApp", icon: "💚" },
-  { name: "Venmo", icon: "🔵" },
-  { name: "Cash", icon: "💵" },
-  { name: "Check", icon: "📝" },
+  { name: "Zelle" },
+  { name: "CashApp" },
+  { name: "Venmo" },
+  { name: "Cash" },
+  { name: "Check" },
 ];
 
 export default function Contact() {
@@ -47,7 +47,6 @@ export default function Contact() {
 
         {status === "sent" ? (
           <div className="text-center bg-white/10 rounded-2xl p-10">
-            <div className="text-5xl mb-4">✅</div>
             <h3 className="text-2xl font-bold mb-2">Thanks! Check your email.</h3>
             <p className="text-blue-100">We sent a confirmation and will follow up within 1 business day.</p>
           </div>
@@ -141,7 +140,6 @@ export default function Contact() {
               <div className="flex flex-wrap gap-3">
                 {paymentMethods.map((pm) => (
                   <span key={pm.name} className="flex items-center gap-1.5 text-sm text-gray-700 font-medium bg-white border border-gray-200 rounded-lg px-3 py-1.5">
-                    <span>{pm.icon}</span>
                     {pm.name}
                   </span>
                 ))}

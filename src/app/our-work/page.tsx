@@ -7,19 +7,18 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { label: "Driveways", icon: "🛣️" },
-  { label: "Patios", icon: "🌿" },
-  { label: "Sidewalks", icon: "🚶" },
-  { label: "Windows", icon: "🪟" },
-  { label: "Car Washes", icon: "🚗" },
-  { label: "Trash Cans", icon: "🗑️" },
+  { label: "Driveways" },
+  { label: "Patios" },
+  { label: "Sidewalks" },
+  { label: "Windows" },
+  { label: "Car Washes" },
+  { label: "Trash Cans" },
 ];
 
 // Placeholder gallery items — replace src with real photos
 const galleryItems = Array.from({ length: 6 }, (_, i) => ({
   id: i + 1,
   label: categories[i % categories.length].label,
-  icon: categories[i % categories.length].icon,
 }));
 
 export default function OurWorkPage() {
@@ -44,7 +43,6 @@ export default function OurWorkPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((cat) => (
               <div key={cat.label} className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                <span className="text-3xl">{cat.icon}</span>
                 <span className="text-sm font-semibold text-gray-700">{cat.label}</span>
               </div>
             ))}
@@ -68,7 +66,6 @@ export default function OurWorkPage() {
                 key={item.id}
                 className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm aspect-video flex flex-col items-center justify-center gap-3 text-gray-400"
               >
-                <span className="text-5xl">{item.icon}</span>
                 <div className="text-sm font-semibold">{item.label} — Photo Coming Soon</div>
               </div>
             ))}

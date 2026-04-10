@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -6,7 +7,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <h3 className="text-white font-extrabold text-lg mb-3 tracking-tight">GT Powerwash</h3>
+            <Link href="/" className="inline-block mb-3">
+              <Image src="/gtpowerwash-logo.jpeg" alt="GT Powerwash" height={48} width={164} className="object-contain" />
+            </Link>
             <p className="text-sm leading-relaxed max-w-xs">
               Residential pressure washing done right. We bring grit, care, and passion to every driveway,
               patio, and sidewalk we clean.

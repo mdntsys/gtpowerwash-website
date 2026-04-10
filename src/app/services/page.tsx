@@ -11,7 +11,6 @@ const services = [
     title: "Driveway Cleaning",
     description:
       "Blast away oil stains, tire marks, and years of embedded grime from concrete and paver driveways. We use high-pressure equipment to restore your surface to its original condition.",
-    icon: "🛣️",
     priceRange: "$75 – $150",
     priceNote: "Price varies by driveway size and level of staining.",
     includes: ["Oil and grease stain treatment", "Surface pre-treatment", "High-pressure rinse", "Edge detail cleaning"],
@@ -20,7 +19,6 @@ const services = [
     title: "Sidewalk Cleaning",
     description:
       "Keep your walkways clean and safe. We remove mildew, algae, dirt buildup, and weathering from concrete and paver sidewalks so your curb appeal stays sharp year-round.",
-    icon: "🚶",
     priceRange: "$50 – $100",
     priceNote: "Price varies by linear footage and condition.",
     includes: ["Algae and mildew removal", "High-pressure wash", "Edge and joint cleaning", "Pre-treatment for heavy buildup"],
@@ -29,7 +27,6 @@ const services = [
     title: "Patio Cleaning",
     description:
       "Restore your outdoor living space to something you're actually proud to show off. We clean concrete, stone, brick, and paver patios — prepping them to look their best all season.",
-    icon: "🌿",
     priceRange: "$75 – $175",
     priceNote: "Price varies by patio size and surface material.",
     includes: ["Surface pre-treatment", "High-pressure wash", "Furniture area cleaning", "Grout and joint detail"],
@@ -38,7 +35,6 @@ const services = [
     title: "Car Wash",
     description:
       "A thorough exterior pressure wash done right in your own driveway. We rinse away road grime, mud, and buildup so your vehicle looks clean and polished without the drive to a car wash.",
-    icon: "🚗",
     priceRange: "$25 – $50",
     priceNote: "Price varies by vehicle size (car vs. SUV/truck).",
     includes: ["Full exterior rinse", "Wheel and tire cleaning", "Undercarriage rinse", "Gentle low-pressure technique"],
@@ -47,7 +43,6 @@ const services = [
     title: "Trash Can Cleaning",
     description:
       "Your trash cans collect bacteria, mold, and odor over time. We sanitize and deodorize the interior and exterior so they're clean, fresh, and ready for weekly use.",
-    icon: "🗑️",
     priceRange: "$20 – $35",
     priceNote: "Price varies by number of cans and size.",
     includes: ["Interior hot-water rinse", "Exterior pressure wash", "Sanitizing treatment", "Deodorizing rinse"],
@@ -56,7 +51,6 @@ const services = [
     title: "Window Cleaning",
     description:
       "Streak-free exterior window cleaning that makes your home look sharp from the outside. We remove water spots, dirt, and grime to give you a clear view and a polished exterior.",
-    icon: "🪟",
     priceRange: "$50 – $125",
     priceNote: "Price varies by number of windows and home size.",
     includes: ["Exterior glass cleaning", "Frame and sill wipe-down", "Streak-free finish", "Screen rinse"],
@@ -64,11 +58,11 @@ const services = [
 ];
 
 const paymentMethods = [
-  { name: "Zelle", icon: "💜" },
-  { name: "CashApp", icon: "💚" },
-  { name: "Venmo", icon: "🔵" },
-  { name: "Cash", icon: "💵" },
-  { name: "Check", icon: "📝" },
+  { name: "Zelle" },
+  { name: "CashApp" },
+  { name: "Venmo" },
+  { name: "Cash" },
+  { name: "Check" },
 ];
 
 export default function ServicesPage() {
@@ -98,7 +92,6 @@ export default function ServicesPage() {
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <span className="text-4xl">{service.icon}</span>
                       <h2 className="text-xl font-bold text-gray-900">{service.title}</h2>
                     </div>
                     <div className="text-right flex-shrink-0 ml-4">
@@ -135,7 +128,6 @@ export default function ServicesPage() {
                 key={pm.name}
                 className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-6 py-3 text-gray-800 font-semibold"
               >
-                <span className="text-2xl">{pm.icon}</span>
                 {pm.name}
               </div>
             ))}

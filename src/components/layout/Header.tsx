@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -17,11 +18,11 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+    <header className="sticky top-0 z-50 bg-black border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2 font-extrabold text-xl text-blue-700 tracking-tight">
-            GT Powerwash
+          <Link href="/" className="flex items-center">
+            <Image src="/gtpowerwash-logo.jpeg" alt="GT Powerwash" height={40} width={137} priority className="object-contain" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -31,8 +32,8 @@ export default function Header() {
                 href={link.href}
                 className={`text-sm font-medium transition-colors ${
                   pathname === link.href
-                    ? "text-blue-700"
-                    : "text-gray-600 hover:text-blue-700"
+                    ? "text-white"
+                    : "text-gray-400 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -48,11 +49,11 @@ export default function Header() {
           </Link>
 
           <button
-            className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+            className="md:hidden p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {mobileOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -64,13 +65,13 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white px-4 pb-4 pt-2 flex flex-col gap-3">
+        <div className="md:hidden border-t border-gray-800 bg-black px-4 pb-4 pt-2 flex flex-col gap-3">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={`text-sm font-medium ${
-                pathname === link.href ? "text-blue-700" : "text-gray-700 hover:text-blue-700"
+                pathname === link.href ? "text-white" : "text-gray-400 hover:text-white"
               }`}
               onClick={() => setMobileOpen(false)}
             >

@@ -4,37 +4,31 @@ const services = [
   {
     title: "Driveway Cleaning",
     description: "Blast away oil stains, tire marks, and embedded grime from concrete and pavers. Your driveway will look brand new.",
-    icon: "🛣️",
     price: "$75 – $150",
   },
   {
     title: "Sidewalk Cleaning",
     description: "Remove built-up dirt, mildew, and weathering from walkways so your curb appeal is always on point.",
-    icon: "🚶",
     price: "$50 – $100",
   },
   {
     title: "Patio Cleaning",
     description: "Restore your outdoor living space. We clean concrete, stone, and paver patios so you can enjoy them again.",
-    icon: "🌿",
     price: "$75 – $175",
   },
   {
     title: "Car Wash",
     description: "A thorough exterior wash to get your vehicle looking clean and fresh — done right in your own driveway.",
-    icon: "🚗",
     price: "$25 – $50",
   },
   {
     title: "Trash Can Cleaning",
     description: "Sanitize and deodorize your trash cans inside and out. Eliminate bacteria and odor fast.",
-    icon: "🗑️",
     price: "$20 – $35",
   },
   {
     title: "Window Cleaning",
     description: "Streak-free window cleaning for a clear view and a polished look on the exterior of your home.",
-    icon: "🪟",
     price: "$50 – $125",
   },
 ];
@@ -56,7 +50,6 @@ export default function Services() {
               key={service.title}
               className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col"
             >
-              <div className="text-4xl mb-4">{service.icon}</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed flex-1">{service.description}</p>
               <div className="mt-4 pt-4 border-t border-gray-100">
