@@ -1,39 +1,41 @@
+import Link from "next/link";
+
 const services = [
   {
-    title: "House & Siding Washing",
-    description:
-      "Remove dirt, mold, mildew, and algae from your home's exterior. We use safe soft-washing techniques that protect your siding and paint.",
-    icon: "🏠",
-  },
-  {
-    title: "Driveway & Sidewalk",
-    description:
-      "Blast away oil stains, tire marks, and embedded grime from concrete and pavers. Your driveway will look brand new.",
+    title: "Driveway Cleaning",
+    description: "Blast away oil stains, tire marks, and embedded grime from concrete and pavers. Your driveway will look brand new.",
     icon: "🛣️",
+    price: "$75 – $150",
   },
   {
-    title: "Deck & Patio",
-    description:
-      "Restore your outdoor living space. We clean wood, composite, and stone decks and patios, prepping them for staining or sealing.",
+    title: "Sidewalk Cleaning",
+    description: "Remove built-up dirt, mildew, and weathering from walkways so your curb appeal is always on point.",
+    icon: "🚶",
+    price: "$50 – $100",
+  },
+  {
+    title: "Patio Cleaning",
+    description: "Restore your outdoor living space. We clean concrete, stone, and paver patios so you can enjoy them again.",
     icon: "🌿",
+    price: "$75 – $175",
   },
   {
-    title: "Roof Soft Washing",
-    description:
-      "Safely eliminate black streaks (Gloeocapsa magma), moss, and lichen from your roof without damaging shingles.",
-    icon: "🏡",
+    title: "Car Wash",
+    description: "A thorough exterior wash to get your vehicle looking clean and fresh — done right in your own driveway.",
+    icon: "🚗",
+    price: "$25 – $50",
   },
   {
-    title: "Fence Cleaning",
-    description:
-      "Revive wood, vinyl, or metal fences with a thorough pressure wash that removes weathering and biological growth.",
-    icon: "🔧",
+    title: "Trash Can Cleaning",
+    description: "Sanitize and deodorize your trash cans inside and out. Eliminate bacteria and odor fast.",
+    icon: "🗑️",
+    price: "$20 – $35",
   },
   {
-    title: "Commercial Cleaning",
-    description:
-      "Keep your business looking professional. We service storefronts, parking lots, warehouses, and more.",
-    icon: "🏢",
+    title: "Window Cleaning",
+    description: "Streak-free window cleaning for a clear view and a polished look on the exterior of your home.",
+    icon: "🪟",
+    price: "$50 – $125",
   },
 ];
 
@@ -44,7 +46,7 @@ export default function Services() {
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Our Services</h2>
           <p className="max-w-xl mx-auto text-gray-500 text-lg">
-            From rooftops to driveways, we handle every surface with professional-grade equipment and proven techniques.
+            From driveways to trash cans, we take care of the dirty work so you don&apos;t have to.
           </p>
         </div>
 
@@ -52,13 +54,25 @@ export default function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col"
             >
               <div className="text-4xl mb-4">{service.icon}</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{service.description}</p>
+              <p className="text-gray-500 text-sm leading-relaxed flex-1">{service.description}</p>
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <span className="text-blue-700 font-bold text-sm">{service.price}</span>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            href="/services"
+            className="inline-flex items-center px-8 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors"
+          >
+            View Full Pricing
+          </Link>
         </div>
       </div>
     </section>

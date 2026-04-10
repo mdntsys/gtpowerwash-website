@@ -1,24 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navLinks = [
-  { href: "/#services", label: "Services" },
-  { href: "/#about", label: "About" },
-  { href: "/#gallery", label: "Gallery" },
-  { href: "/#testimonials", label: "Testimonials" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/our-work", label: "Our Work" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-700">
+          <Link href="/" className="flex items-center gap-2 font-extrabold text-xl text-blue-700 tracking-tight">
             GT Powerwash
           </Link>
 
@@ -27,7 +29,11 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-600 hover:text-blue-700 transition-colors"
+                className={`text-sm font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-blue-700"
+                    : "text-gray-600 hover:text-blue-700"
+                }`}
               >
                 {link.label}
               </Link>
@@ -35,7 +41,7 @@ export default function Header() {
           </nav>
 
           <Link
-            href="/#contact"
+            href="/contact"
             className="hidden md:inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
           >
             Get a Free Quote
@@ -63,14 +69,16 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-gray-700 hover:text-blue-700"
+              className={`text-sm font-medium ${
+                pathname === link.href ? "text-blue-700" : "text-gray-700 hover:text-blue-700"
+              }`}
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
             </Link>
           ))}
           <Link
-            href="/#contact"
+            href="/contact"
             className="mt-2 inline-flex justify-center px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
             onClick={() => setMobileOpen(false)}
           >

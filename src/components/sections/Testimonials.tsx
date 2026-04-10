@@ -1,20 +1,20 @@
 const testimonials = [
   {
-    name: "Sarah M.",
+    name: "Marcus D.",
     location: "Homeowner",
-    body: "GT Powerwash transformed my driveway — it looks better than when we moved in! The team was professional, fast, and the price was very fair.",
+    body: "These guys did an amazing job on my driveway. Oil stains I thought were permanent are completely gone. Fast, professional, and great price.",
     rating: 5,
   },
   {
-    name: "James T.",
-    location: "Property Manager",
-    body: "We use GT Powerwash for all our commercial properties. They're reliable, thorough, and always show up on time. Highly recommend.",
+    name: "Priya S.",
+    location: "Homeowner",
+    body: "Hired them for patio and sidewalk cleaning. They were on time, thorough, and my backyard looks like new. Will definitely book again.",
     rating: 5,
   },
   {
-    name: "Linda K.",
+    name: "Kevin R.",
     location: "Homeowner",
-    body: "My deck looks brand new after their soft wash treatment. I was amazed at how much mold and staining they were able to remove.",
+    body: "Super easy to work with. They came out the next day, cleaned the trash cans and windows, and everything looked spotless. Highly recommend.",
     rating: 5,
   },
 ];
@@ -38,7 +38,7 @@ export default function Testimonials() {
         <div className="text-center mb-14">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">What Our Customers Say</h2>
           <p className="max-w-xl mx-auto text-gray-500 text-lg">
-            Don't take our word for it — here's what our clients have to say.
+            Don&apos;t take our word for it — here&apos;s what our neighbors have to say.
           </p>
         </div>
 

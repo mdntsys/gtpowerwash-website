@@ -2,15 +2,37 @@
 
 import { useState } from "react";
 
+const paymentMethods = [
+  { name: "Zelle", icon: "💜" },
+  { name: "CashApp", icon: "💚" },
+  { name: "Venmo", icon: "🔵" },
+  { name: "Cash", icon: "💵" },
+  { name: "Check", icon: "📝" },
+];
+
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
-    // TODO: wire up to a form backend (e.g. Resend, Formspree, or a Next.js API route)
-    await new Promise((r) => setTimeout(r, 1000));
-    setStatus("sent");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      service: (form.elements.namedItem("service") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    setStatus(res.ok ? "sent" : "error");
   }
 
   return (
@@ -19,18 +41,24 @@ export default function Contact() {
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">Get Your Free Quote</h2>
           <p className="text-blue-100 text-lg">
-            Fill out the form below and we'll get back to you within one business day.
+            Fill out the form and we&apos;ll send a confirmation to your email within one business day.
           </p>
         </div>
 
         {status === "sent" ? (
           <div className="text-center bg-white/10 rounded-2xl p-10">
             <div className="text-5xl mb-4">✅</div>
-            <h3 className="text-2xl font-bold mb-2">Thanks! We'll be in touch soon.</h3>
-            <p className="text-blue-100">Expect a response within 1 business day.</p>
+            <h3 className="text-2xl font-bold mb-2">Thanks! Check your email.</h3>
+            <p className="text-blue-100">We sent a confirmation and will follow up within 1 business day.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 shadow-xl text-gray-900 space-y-5">
+            {status === "error" && (
+              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
+                Something went wrong. Please try again or call us directly.
+              </div>
+            )}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="name">
@@ -62,12 +90,13 @@ export default function Contact() {
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="email">
-                Email
+                Email *
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
+                required
                 className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 placeholder="john@example.com"
               />
@@ -83,12 +112,13 @@ export default function Contact() {
                 className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
               >
                 <option value="">Select a service...</option>
-                <option>House &amp; Siding Washing</option>
-                <option>Driveway &amp; Sidewalk</option>
-                <option>Deck &amp; Patio</option>
-                <option>Roof Soft Washing</option>
-                <option>Fence Cleaning</option>
-                <option>Commercial Cleaning</option>
+                <option>Driveway Cleaning</option>
+                <option>Sidewalk Cleaning</option>
+                <option>Patio Cleaning</option>
+                <option>Car Wash</option>
+                <option>Trash Can Cleaning</option>
+                <option>Window Cleaning</option>
+                <option>Multiple Services</option>
                 <option>Other</option>
               </select>
             </div>
@@ -104,6 +134,18 @@ export default function Contact() {
                 className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
                 placeholder="Tell us about your property and what you need cleaned..."
               />
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-4">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">We Accept</p>
+              <div className="flex flex-wrap gap-3">
+                {paymentMethods.map((pm) => (
+                  <span key={pm.name} className="flex items-center gap-1.5 text-sm text-gray-700 font-medium bg-white border border-gray-200 rounded-lg px-3 py-1.5">
+                    <span>{pm.icon}</span>
+                    {pm.name}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <button
