@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Turnstile from "../ui/Turnstile";
 
 const paymentMethods = [
   { name: "Zelle" },
@@ -12,6 +13,7 @@ const paymentMethods = [
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [token, setToken] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,6 +26,9 @@ export default function Contact() {
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       service: (form.elements.namedItem("service") as HTMLSelectElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      // Honeypot — real users never see or fill this; bots usually do.
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      token,
     };
 
     const res = await fetch("/api/contact", {
@@ -52,6 +57,12 @@ export default function Contact() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 shadow-xl text-gray-900 space-y-5">
+            {/* Honeypot: hidden from humans, off-screen and excluded from tab order. */}
+            <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+              <label htmlFor="company-hp">Company</label>
+              <input id="company-hp" name="company" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
+
             {status === "error" && (
               <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
                 Something went wrong. Please try again or call us directly.
@@ -146,9 +157,11 @@ export default function Contact() {
               </div>
             </div>
 
+            <Turnstile onVerify={setToken} />
+
             <button
               type="submit"
-              disabled={status === "sending"}
+              disabled={status === "sending" || !token}
               className="w-full py-3 rounded-xl bg-blue-600 text-white font-bold text-base hover:bg-blue-700 transition-colors disabled:opacity-60"
             >
               {status === "sending" ? "Sending..." : "Request My Free Quote"}

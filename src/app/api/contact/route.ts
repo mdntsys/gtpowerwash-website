@@ -3,9 +3,44 @@ import { NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const TURNSTILE_VERIFY_URL =
+  "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
 export async function POST(req: Request) {
   const body = await req.json();
-  const { name, email, phone, address, service, message } = body;
+  const { name, email, phone, address, service, message, company, token } = body;
+
+  // Honeypot: a real visitor never fills the hidden "company" field. If it's
+  // populated, this is a bot — return 200 so we don't tip it off, but send nothing.
+  if (typeof company === "string" && company.trim() !== "") {
+    return NextResponse.json({ success: true });
+  }
+
+  // CAPTCHA: verify the Turnstile token server-side. A bot POSTing directly to
+  // this endpoint won't have a valid token, so it gets rejected here.
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.error("TURNSTILE_SECRET_KEY is not set.");
+    return NextResponse.json({ error: "Server is misconfigured." }, { status: 500 });
+  }
+  if (!token || typeof token !== "string") {
+    return NextResponse.json({ error: "Captcha required." }, { status: 400 });
+  }
+
+  const remoteip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const verifyRes = await fetch(TURNSTILE_VERIFY_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      secret,
+      response: token,
+      ...(remoteip ? { remoteip } : {}),
+    }),
+  });
+  const verify = (await verifyRes.json()) as { success: boolean };
+  if (!verify.success) {
+    return NextResponse.json({ error: "Captcha verification failed." }, { status: 400 });
+  }
 
   if (!name || !email || !phone) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
